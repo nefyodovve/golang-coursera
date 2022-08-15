@@ -89,6 +89,7 @@ func execInGoroutine(f func(data string) string, data string) chan string {
 	result := make(chan string, 1)
 	go func(out chan<- string) {
 		out <- f(data)
+		close(out)
 	}(result)
 	return result
 }
